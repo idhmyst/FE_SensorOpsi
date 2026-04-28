@@ -1,38 +1,46 @@
 // filepath: 3-cloud-server-backend/src/controllers/sensorController.js
 const sensorData = []; // In-memory storage (replace with database in production)
 
+// ==========================================
+// ENDPOINT 1: Menerima Data (Untuk ESP32)
+// ==========================================
 exports.storeSensorData = (req, res) => {
   try {
-    const { nodeId, temperature, humidity, co2, timestamp } = req.body;
-    
-    const data = {
-      id: sensorData.length + 1,
-      nodeId,
-      temperature,
-      humidity,
-      co2,
-      timestamp: timestamp || new Date().toISOString(),
-      createdAt: new Date()
+    const dataMasuk = req.body;
+
+    // Menambahkan timestamp kapan data diterima
+    const dataDenganWaktu = {
+      ...dataMasuk,
+      waktu_terima: new Date().toISOString()
     };
-    
-    sensorData.push(data);
-    res.status(201).json({ success: true, data });
+
+    // Simpan ke "database"
+    sensorData.push(dataDenganWaktu);
+
+    console.log("📥 Data baru masuk dari Node:", dataMasuk.id);
+    console.log(`Suhu Udara: ${dataMasuk.t_udara}°C | CO2: ${dataMasuk.co2} ppm`);
+
+    res.status(201).json({ 
+      pesan: "Data berhasil disimpan!", 
+      status: "OK" 
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
+// ==========================================
+// ENDPOINT 2: Mengirim Data (Untuk Dashboard UI)
+// ==========================================
 exports.getSensorData = (req, res) => {
   try {
-    const { nodeId, limit = 100 } = req.query;
-    let filtered = sensorData;
+    // Mengirim 10 data terbaru agar dashboard tidak berat
+    const dataTerbaru = sensorData.slice(-10);
     
-    if (nodeId) {
-      filtered = sensorData.filter(d => d.nodeId === nodeId);
-    }
-    
-    const result = filtered.slice(-parseInt(limit));
-    res.json({ success: true, count: result.length, data: result });
+    res.status(200).json({
+      total_data: sensorData.length,
+      data: dataTerbaru
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -40,14 +48,12 @@ exports.getSensorData = (req, res) => {
 
 exports.getLatestData = (req, res) => {
   try {
-    const { nodeId } = req.query;
-    let filtered = sensorData;
-    
-    if (nodeId) {
-      filtered = sensorData.filter(d => d.nodeId === nodeId);
-    }
-    
-    const latest = filtered[filtered.length - 1];
+    const latest = sensorData[sensorData.length - 1];
+    res.json({ success: true, data: latest });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
     res.json({ success: true, data: latest || null });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -3,9 +3,17 @@ const express = require('express');
 const router = express.Router();
 const sensorController = require('../controllers/sensorController');
 
-// Sensor endpoints
-router.post('/sensor', sensorController.storeSensorData);
-router.get('/sensor', sensorController.getSensorData);
+// ==========================================
+// ENDPOINT 1: Menerima Data (Untuk ESP32)
+// ==========================================
+router.post('/sensor-data', sensorController.storeSensorData);
+
+// ==========================================
+// ENDPOINT 2: Mengirim Data (Untuk Dashboard UI)
+// ==========================================
+router.get('/status-tanaman', sensorController.getSensorData);
+
+// Additional endpoints
 router.get('/sensor/latest', sensorController.getLatestData);
 
 // Prediction endpoint (placeholder for ML integration)

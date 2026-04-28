@@ -25,7 +25,8 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Cloud server running on port ${PORT}`);
+  console.log(`🚀 Server Stecuu berjalan di http://localhost:${PORT}`);
+  console.log(`📡 Menunggu data sensor dari greenhouse...`);
 });
 
 module.exports = app;

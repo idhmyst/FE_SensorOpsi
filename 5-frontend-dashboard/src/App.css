@@ -1,0 +1,118 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  color: #333;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #ddd;
+}
+
+.dashboard-header h1 {
+  color: #2c7a7b;
+  margin-bottom: 5px;
+}
+
+.status-ok { color: #38a169; font-weight: bold; }
+.status-error { color: #e53e3e; font-weight: bold; }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.sensor-panel, .kamera-panel {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.sensor-panel h2, .kamera-panel h2 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: #4a5568;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.sensor-card {
+  background: #e6fffa;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #b2f5ea;
+}
+
+.sensor-card h3 {
+  font-size: 0.9rem;
+  color: #319795;
+}
+
+.sensor-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 5px;
+  color: #234e52;
+}
+
+.kamera-frame {
+  background: #edf2f7;
+  height: 250px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cbd5e0;
+  margin-bottom: 20px;
+}
+
+.placeholder-gambar {
+  text-align: center;
+  color: #718096;
+}
+
+.ai-status {
+  background: #ebf8ff;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #bee3f8;
+}
+
+.ai-status h3 {
+  font-size: 1rem;
+  color: #2b6cb0;
+  margin-bottom: 10px;
+}
+
+.btn-aktuator {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background-color: #a0aec0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed;
+  font-weight: bold;
+}
